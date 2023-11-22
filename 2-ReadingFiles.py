@@ -8,5 +8,11 @@ if __name__ == "__main__":
     
     spark = SparkSession.builder.config(conf=conf).getOrCreate()  
     
-    print(spark.conf.get("spark.app.name"))
-    print(spark.sparkContext.getConf().toDebugString())
+    df = spark.read\
+        .format("csv") \
+        .option("header","true") \
+        .option("inferschema","true") \
+        .load("sample.csv")
+        
+    print(df.collect())
+    # spark.stop()

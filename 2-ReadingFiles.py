@@ -13,6 +13,11 @@ if __name__ == "__main__":
         .option("header","true") \
         .option("inferschema","true") \
         .load("sample.csv")
-        
-    print(df.collect())
+     
+    df1 = df.withColumn("Age89",df["Age"]+89)   
+    
+    
+    df_modified = df1.select("Age","Age89","State","Country").groupBy("Country","state").avg()
+    print(df_modified.collect())
+    print(df_modified.show())
     # spark.stop()

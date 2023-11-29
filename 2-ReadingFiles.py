@@ -18,6 +18,17 @@ if __name__ == "__main__":
     
     
     df_modified = df1.select("Age","Age89","State","Country").groupBy("Country","state").avg()
-    print(df_modified.collect())
+    # print(df_modified.collect())
+    # print(df_modified.show())
+    
+    # for creating a data base
+    df.createOrReplaceGlobalTempView('myTable')
+    #    select State,Country,avg(Age) from global_temp.Table groupBy Country ,state 
+    df_sparked = spark.sql(
+    """
+        select Country,state,avg(Age) from global_temp.myTable group by Country,state; 
+    """
+    )
     print(df_modified.show())
+    print(df_sparked.show())
     # spark.stop()

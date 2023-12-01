@@ -42,7 +42,8 @@ if __name__ == "__main__":
      
     # THE BELOW OPERATION consists of only one action so one job  
     
-    df.repartition(2) ## this creates a stage and goes to WORK EXCHANGE
+    df = df.repartition(2) ## this creates a stage and goes to WORK EXCHANGE
+    print(df.rdd.getNumPartitions())
     
     df = df.select("Age","Country","State").groupBy("Country").count() ## since groupby is a wide transformation it internally shuffles the stuff and sends to WRITE EXCHANGE 
     # we have another stage reading the WRITE EXCHAGE and does the count operation

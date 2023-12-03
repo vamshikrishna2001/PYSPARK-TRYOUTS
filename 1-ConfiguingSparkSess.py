@@ -10,3 +10,5 @@ if __name__ == "__main__":
     
     print(spark.conf.get("spark.app.name"))
     print(spark.sparkContext.getConf().toDebugString())
+
+    

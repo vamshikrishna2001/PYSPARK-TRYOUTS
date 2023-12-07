@@ -1,5 +1,6 @@
 from pyspark.sql import *
 from pyspark import SparkConf
+from pyspark.sql.functions import *
 
 if __name__ == "__main__":
     conf = SparkConf()
@@ -23,4 +24,4 @@ if __name__ == "__main__":
               .withColumn("referrer", regexp_extract("log_entry", pattern, 6)) \
               .withColumn("user_agent", regexp_extract("log_entry", pattern, 7))
               
-    print(df.head())
+    print(df_result.show(5))

@@ -20,7 +20,6 @@ if __name__ == "__main__":
         .builder \
         .appName("UDF Demo") \
         .master("local[2]") \
-        .config("spark.driver.memory", "2g") \
         .getOrCreate()
 
     survey_df = spark.read \
@@ -33,11 +32,11 @@ if __name__ == "__main__":
     parse_gender_udf = udf(parse_gender, returnType=StringType())
     survey_df2 = survey_df.withColumn("Gender1", parse_gender_udf("Gender"))
     print(survey_df2.columns)
-    print(survey_df2.head())
+    print(survey_df2.show(5))
 
-    spark.udf.register("parse_gender_udf", parse_gender, StringType())
-    print("Catalog Entry:")
-    [print(r) for r in spark.catalog.listFunctions() if "parse_gender" in r.name]
+    # spark.udf.register("parse_gender_udf", parse_gender, StringType())
+    # print("Catalog Entry:")
+    # [print(r) for r in spark.catalog.listFunctions() if "parse_gender" in r.name]
 
-    survey_df3 = survey_df.withColumn("Gender", expr("parse_gender_udf(Gender)"))
-    survey_df3.show(10)
+    # survey_df3 = survey_df.withColumn("Gender", expr("parse_gender_udf(Gender)"))
+    # survey_df3.show(10)

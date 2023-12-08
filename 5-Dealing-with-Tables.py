@@ -5,7 +5,7 @@ from pyspark import SparkContext , SparkConf
 if __name__ == "__main__":
     conf = SparkConf()
     conf.set("spark.app.name","targaryen")
-    conf.set("master","local[*]")
+    conf.set("spark.master","local[*]")
     conf.set("spark.sql.catalogImplementation", "hive") ## overwriting current metastore to use hive metastore
     
     spark = SparkSession.builder.config(conf=conf).getOrCreate()  

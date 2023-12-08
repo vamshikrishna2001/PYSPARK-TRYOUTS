@@ -5,7 +5,7 @@ from pyspark.sql.functions import *
 if __name__ == "__main__":
     conf = SparkConf()
     conf.set("spark.app.name","targaryen")
-    conf.set("master","local[*]")
+    conf.set("spark.master","local[*]")
     
     
     spark = SparkSession.builder.config(conf=conf).getOrCreate()  
